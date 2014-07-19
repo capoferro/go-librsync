@@ -19,5 +19,7 @@ func (s *RsyncSuite) Test_TraceLevel_Set(c *C) {
 }
 
 func (s *RsyncSuite) Test_TraceLevel_SetInvalid(c *C) {
-	librsync.SetTraceLevel(syslog.Priority(999))
+	err := librsync.SetTraceLevel(syslog.Priority(999))
+	c.Assert(err, NotNil)
+	c.Assert(err.Error(), Equals, "999 is not a valid syslog Priority")
 }
